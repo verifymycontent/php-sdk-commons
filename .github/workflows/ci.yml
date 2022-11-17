@@ -11,5 +11,8 @@ jobs:
       - uses: php-actions/composer@v6 # or alternative dependency management
       - uses: php-actions/phpunit@v3
         with:
+          php_extensions: xdebug
           configuration: phpunit.xml
           args: --coverage-text
+        env:
+          XDEBUG_MODE: coverage
