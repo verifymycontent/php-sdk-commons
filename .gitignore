@@ -1,0 +1,8 @@
+.idea/
+.vscode/
+
+# PHP
+.phpunit.cache
+.phpunit.result.cache
+coverage/
+vendor/
