@@ -19,6 +19,10 @@ class HMAC {
      */
     public function generate($input): string
     {
+        if (is_array($input)) {
+            $input = json_encode($input);
+        }
+
         $hash = hash_hmac('sha256', $input, $this->apiSecret);
         return "{$this->apiKey}:{$hash}";
     }

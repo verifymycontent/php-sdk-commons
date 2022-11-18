@@ -59,5 +59,14 @@ class HMACTest extends TestCase
         ));
     }
 
+    public function testGenerateShouldGenerateJsonIfInputIsArray()
+    {
+        $hmac = new HMAC(self::API_KEY, self::API_SECRET);
+        $this->assertEquals(
+            $this->hmac_header(json_encode(["foo" => "bar"])),
+            $hmac->generate(["foo" => "bar"])
+        );
+    }
+
 
 }
