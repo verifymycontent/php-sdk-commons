@@ -2,7 +2,7 @@
     "name": "verifymycontent/commons",
     "description": "Commons library for VerifyMyContent PHP SDK",
     "minimum-stability": "stable",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "type": "library",
     "license": "MIT",
     "authors": [

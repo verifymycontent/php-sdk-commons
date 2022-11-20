@@ -68,5 +68,12 @@ class HMACTest extends TestCase
         );
     }
 
-
+    public function testGenerateShouldGenerateAsHeader()
+    {
+        $hmac = new HMAC(self::API_KEY, self::API_SECRET);
+        $this->assertEquals(
+            'hmac '. $this->hmac_header(json_encode(["foo" => "bar"])),
+            $hmac->generate(["foo" => "bar"], true)
+        );
+    }
 }

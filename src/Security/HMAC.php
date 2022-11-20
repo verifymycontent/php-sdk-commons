@@ -17,14 +17,14 @@ class HMAC {
     /**
      * Generate the HMAC signature based on input and API keys
      */
-    public function generate($input): string
+    public function generate($input, bool $header = false): string
     {
         if (is_array($input)) {
             $input = json_encode($input);
         }
 
         $hash = hash_hmac('sha256', $input, $this->apiSecret);
-        return "{$this->apiKey}:{$hash}";
+        return sprintf("%s%s:%s", $header ? 'hmac ': '', $this->apiKey, $hash);
     }
 
     /**

@@ -4,15 +4,34 @@ on: [push, pull_request]
 
 jobs:
   build-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        php-version: [7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1]
+        php-extensions: [xdebug]
+        php-configuration: [phpunit.xml]
+        php-args: [--coverage-text]
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: php-actions/composer@v6 # or alternative dependency management
-      - uses: php-actions/phpunit@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
         with:
-          php_extensions: xdebug
-          configuration: phpunit.xml
-          args: --coverage-text
+          php-version: ${{ matrix.php-version }}
+
+      - name: Check PHP Version
+        run: php -v
+
+      - name: Install Composer
+        uses: php-actions/composer@v6
+
+      - name: Install PHPUnit
+        uses: php-actions/phpunit@v3
+        with:
+          php_extensions: ${{ matrix.php-extensions }}
+          configuration: ${{ matrix.php-configuration }}
+          args: ${{ matrix.php-args }}
         env:
           XDEBUG_MODE: coverage
